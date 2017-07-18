@@ -1,0 +1,31 @@
+.claim{
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  transition: background .3s ease;
+
+  p, input {
+    margin: 0;
+  }
+
+  >:first-child {
+    margin-right: 1rem;
+  }
+
+  &:hover {
+    background: $hoover-background-color;
+  }
+}
+
+.claim-completed {
+  .claim__text {
+    color: $light-color;
+    text-decoration: line-through;
+  }
+}
+
+.claim__subtext {
+  color: $subtext-color;
+  font-size: 0.7rem;
+}
