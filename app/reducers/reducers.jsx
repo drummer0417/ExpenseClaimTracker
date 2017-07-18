@@ -49,6 +49,8 @@ export var claimsReducer = (state = [], action) => {
     case 'UPDATE_CLAIM':
       var updatedClaims = state.map((claim) => {
         if (claim.id === action.id) {
+          console.log('in reducer, claim gevonden: ', claim);
+          console.log('in reducer, claim updates: ', action.updates);
           return {
             ...claim,
             ...action.updates

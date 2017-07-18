@@ -6,7 +6,7 @@ searchText = searchText?  searchText.toLowerCase() : "";
 
 // filter first
   var filteredClaims = claims.filter((claim) => {
-      return showCompleted || claim.status !== 'completed' ;
+      return showCompleted || claim.status !== 'Completed' ;
   });
 
   // filter on searchText
@@ -22,16 +22,16 @@ searchText = searchText?  searchText.toLowerCase() : "";
 
   // then sort
   filteredClaims.sort((a, b) => {
-    if (a.status !== 'completed' && b.status === 'completed') {
+    if (a.status !== 'Completed' && b.status === 'Completed') {
       return -1;
-    } else if (a.status === 'completed' && b.status !== 'completed') {
+    } else if (a.status === 'Completed' && b.status !== 'Completed') {
       return 1;
-    } else { // a.completed and b.completed are equal
+    } else { // a.Completed and b.Completed are equal
 
-      // var sortDateA = a.completed? a.completedAt: a.createdAt;
-      // var sortDateB = b.completed? b.completedAt: b.createdAt;
-      var sortDateA = a.status === 'completed'? a.claimDate: a.claimDate;
-      var sortDateB = b.status === 'completed'? b.claimDate: b.claimDate;
+      // var sortDateA = a.Completed? a.CompletedAt: a.createdAt;
+      // var sortDateB = b.Completed? b.CompletedAt: b.createdAt;
+      var sortDateA = a.status === 'Completed'? a.claimDate: a.claimDate;
+      var sortDateB = b.status === 'Completed'? b.claimDate: b.claimDate;
 
       if (sortDateA > sortDateB) {
         return -1;

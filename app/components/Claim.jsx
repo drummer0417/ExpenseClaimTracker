@@ -13,7 +13,7 @@ export var Claim = React.createClass({
   // },
   render: function () {
     var {description, id, number, claimDate, invoiceDate, status, dispatch} = this.props;
-    var completed = status === 'completed';
+    var completed = status === 'Completed';
     var claimClassName = completed? 'claim claim-completed': 'claim';
 
     var renderDate = () => {

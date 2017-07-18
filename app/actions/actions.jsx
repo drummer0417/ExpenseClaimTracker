@@ -64,18 +64,14 @@ export var toggleShowCompleted = () => {
   };
 };
 
-export var startToggleClaim = (id, completed) => {
+export var startUpdateClaim = (id, claim) => {
 
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
     var claimRef = firebaseRef.child(`users/${uid}/claims/${id}`);
-    var status = completed? 'completed': 'not yet completd'
-    var updates = {
-      status,
-      completedAt: completed? moment().unix(): null
-    };
-    return claimRef.update(updates).then(() => {
-      dispatch(updateClaim(id, updates));
+
+    return claimRef.update(claim).then(() => {
+      dispatch(updateClaim(id, claim));
     });
   };
 }
