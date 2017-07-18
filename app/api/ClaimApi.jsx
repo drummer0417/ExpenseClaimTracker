@@ -6,7 +6,7 @@ searchText = searchText?  searchText.toLowerCase() : "";
 
 // filter first
   var filteredClaims = claims.filter((claim) => {
-      return showCompleted || !claim.completed ;
+      return showCompleted || claim.status !== 'completed' ;
   });
 
   // filter on searchText

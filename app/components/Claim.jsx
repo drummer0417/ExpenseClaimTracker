@@ -30,13 +30,13 @@ export var Claim = React.createClass({
     return (
       // <div onClick={this.onToggleCompleted(id)}>
       <div className={claimClassName} onClick={() => {
-          dispatch(actions.startToggleClaim(id, !completed))
+          window.location.hash = `/claimdetails?id=${id}`;
         }}>
         <div>
           <input type='checkbox' checked={completed} />
         </div>
         <div>
-          <p className='claim__text'>{number}: {description}</p>
+          <p className='claim__text'>{number}: {description} / Status: {status}</p>
           <p className='claim__subtext'>{renderDate()}</p>
         </div>
       </div>

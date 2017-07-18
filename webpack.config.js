@@ -12,7 +12,9 @@ try {
 
 } catch (e) {
   // Ignore as this happens on production which is not an issue
-  console.log('error loading envFile: ', e);
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('error loading envFile: ', e);
+  }
 } finally {
 
 }

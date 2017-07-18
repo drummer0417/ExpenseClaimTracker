@@ -4,6 +4,17 @@ import {connect} from 'react-redux';
 import * as actions from 'actions';
 
 export var ClaimDetails = React.createClass({
+  getClaim: function(id){
+    if (id) {
+      console.log('props.claims: ', this.props.claims);
+      var aClaim = this.props.claims.filter((claim) => {
+        return claim.id === id;
+      })
+      return aClaim[0];
+    } else {
+      return {};
+    }
+  },
   handleSubmit: function(e){
     e.preventDefault();
     var {dispatch} = this.props;
@@ -24,6 +35,8 @@ export var ClaimDetails = React.createClass({
     }
   },
   render: function () {
+    var claim = this.getClaim(this.props.location.query.id);
+
     return(
       <div>
         <h1 className='page-title'>Claim Details</h1>
@@ -32,10 +45,22 @@ export var ClaimDetails = React.createClass({
             <div className='container'>
               <div className='container__footer'>
                 <form name='form' onSubmit={this.handleSubmit}>
-                  <input type='text' ref='claimNumber' placeholder='number' autoFocus/>
-                  <input type='text' ref='description' placeholder='description' />
-                  <input type='text' ref='claimDate' placeholder='invoice date' />
-                  <input type='text' ref='invoiceDate' placeholder='claim date' />
+                  <input type='text' ref='claimNumber' value={claim.number} placeholder='number' autoFocus/>
+                  <input type='text' ref='description' value={claim.description} placeholder='description' />
+                  <input type='text' ref='claimDate' value={claim.claimDate} placeholder='invoice date' />
+                  <input type='text' ref='invoiceDate' value={claim.invoiceDate} placeholder='claim date' />
+                  <label>
+                    <input className="radio" type="radio" name="myRadioInput" value="New"/>
+                    <span>New</span>
+                  </label>
+                  <label>
+                    <input className="radio" type="radio" name="myRadioInput" value="PendingApproval"/>
+                    <span>Pending Approval</span>
+                  </label>
+                  <label>
+                    <input className="radio" type="radio" name="myRadioInput" value="Payed"/>
+                    <span>Payed</span>
+                  </label>
                   <button className='button expanded'>Save</button>
                 </form>
               </div>
@@ -47,4 +72,6 @@ export var ClaimDetails = React.createClass({
   }
 });
 
-export default connect() (ClaimDetails);
+export default connect((state) => {
+  return state
+})  (ClaimDetails);
