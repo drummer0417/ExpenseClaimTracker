@@ -13,7 +13,9 @@ searchText = searchText?  searchText.toLowerCase() : "";
   filteredClaims = filteredClaims.filter((claim) => {
     if (!searchText || searchText.length == 0 ) {
       return true;
-    } else if (claim.text.toLowerCase().indexOf(searchText) === -1) {
+    } else if (claim.description.toLowerCase().indexOf(searchText) === -1 &&
+               claim.number.toLowerCase().indexOf(searchText) === -1)
+    {
       return false;
     } else {
       return true;

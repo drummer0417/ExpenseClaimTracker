@@ -2,7 +2,7 @@ var React = require('react');
 var {connect} = require('react-redux');
 
 // var Claim = require('Claim');         ------- replace this require by import to be able to
-//                                     ------- grab the defalt (export default....)
+//                                       ------- grab the defalt (export default....)
 import Claim from 'Claim';
 import ClaimApi from 'ClaimApi';
 import AddClaim from 'AddClaim';
