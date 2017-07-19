@@ -25,7 +25,7 @@ export var ClaimApp = React.createClass({
 
         <h1 className='page-title'>Expense Claim Tracker</h1>
         <div className='row'>
-          <div className='column small-centered small-12 medium-11 large-5 '>
+          <div className='column small-centered small-12 medium-9 large-6 '>
             <div className='container'>
               <ClaimSearch />
               <ClaimList />

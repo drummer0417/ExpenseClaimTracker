@@ -17,7 +17,7 @@ export var AddClaim = React.createClass({
   },
   render: function (){
     return(
-      <div className='container__footer'>
+      <div className='container__footer' controls>
         <form name='form' onSubmit={this.handleSubmit}>
           {/* <input type='text' ref='claimText' placeholder='Wah gaduh gij doen?' autoFocus/> */}
           <button className='button expanded'>New Claim</button>

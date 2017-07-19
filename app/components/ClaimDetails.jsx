@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import  moment from 'moment';
 
 import * as actions from 'actions';
 
@@ -13,71 +14,60 @@ export var ClaimDetails = React.createClass({
       })
       return aClaim[0];
     } else {
-      return {};
+      var timestamp = moment().unix();
+      var currentDate = moment.unix(timestamp).format('YYYY-MM-DD');
+      console.log('currentDate: ', currentDate);
+      return {
+        status: 'New'
+      };
     }
-  },
-  handleSubmit: function(e){
-    // e.preventDefault();
-    // var {dispatch} = this.props;
-    // var {number, description, claimDate, invoiceDate, newStatus} = this.refs;
-    // console.log('status::::', newStatus.value);
-    // if (number.value.length > 0) {
-    //   alert('Enter a claim number...')
-    // } else {
-    //   if (claim.id) {
-    //
-    //   }
-    //   var claim = {
-    //     number: number.value,
-    //     description: description.value,
-    //     claimDate: claimDate.value,
-    //     invoiceDate: invoiceDate.value,
-    //     status: newStatus
-    //   };
-    //   // dispatch(actions.startAddClaim(claim));
-    //   // window.location.hash = '/claims';
-    // }
   },
   render: function () {
 
     var claim = {};
     var id =  this.props.location.query.id;
     var claim = this.getClaim(id);
-console.log('claim just after getClaim', claim);
-    var newStatus;
+    var newStatus  = "";
+
     var setStatus = (e) => {
-      this.refs.newStatus.value = e.target.value;
-      console.log('newStatus:', this.refs.newStatus.value);
+      newStatus = e.target.value;
+      // this.refs.newStatus.value = e.target.value;
+      console.log('newStatus:', newStatus);
     }
 
+    var handleCancel = (e) => {
+      e.preventDefault();
+      window.location.hash = '/claims';
+    }
     var handleSubmit = (e) => {
       e.preventDefault();
-      console.log('claim::::::::::::::::::::::::', claim);
 
       var {dispatch} = this.props;
-      var {number, description, amount, claimDate, invoiceDate, newStatus} = this.refs;
+      var {number, description, amount, claimDate, invoiceDate} = this.refs;
 
       var prevStatus = claim && claim.status ? claim.status : 'new';
-      var newStatusValue = newStatus.value.length > 0 ? newStatus.value : prevStatus;
-      console.log('newStatus:', newStatusValue);
+      newStatus = newStatus.length > 0 ? newStatus : prevStatus;
+      console.log('newStatus before update:', newStatus);
 
-      if (number.value.length < 1) {
+      if (number.value.length < 1 || description.value.length < 1) {
         alert('Enter a claim number...')
       } else {
-        if (claim.id) {
-          var newClaim = {
-            number: number.value,
-            description: description.value,
-            amount: amount.value,
-            claimDate: claimDate.value,
-            invoiceDate: invoiceDate.value,
-            status: newStatusValue
-          };
+        var newClaim = {
+          number: number.value,
+          description: description.value,
+          amount: amount.value,
+          claimDate: claimDate.value,
+          invoiceDate: invoiceDate.value,
+          status: newStatus
+        };
+        if (claim.id) { // Update existing claim
           dispatch(actions.startUpdateClaim(claim.id, newClaim));
-          window.location.hash = '/claims';
+          console.log('claim updated: ', claim.description);
+        } else { // Add new claim
+          dispatch(actions.startAddClaim(newClaim));
+          console.log('claim added: ', claim.description);
         }
-        // dispatch(actions.startAddClaim(claim));
-        // window.location.hash = '/claims';
+        window.location.hash = '/claims';
       }
     }
     var renderStatus = () => {
@@ -106,10 +96,9 @@ console.log('claim just after getClaim', claim);
             <span className="radio-label">Wividus - in progress</span>
           </label>
           <label>
-            <input  type="radio" ref="status" name='status' onClick={setStatus} defaultChecked={isCompleted} value="Completed"/>
+            <input type="radio" ref="status" name='status' onClick={setStatus} defaultChecked={isCompleted} value="Completed"/>
             <span className="radio-label">Completed</span>
           </label>
-          <input type="hidden" ref="newStatus"/>
         </div>
       )
     }
@@ -118,17 +107,35 @@ console.log('claim just after getClaim', claim);
       <div>
         <h1 className='page-title'>Claim Details</h1>
         <div className='row'>
-          <div className='column small-centered small-12 medium-11 large-5 '>
+          <div className='column small-centered small-12 medium-9 large-6 '>
             <div className='container'>
               <div className='container__footer'>
                 <form name='form' onSubmit={handleSubmit}>
-                  <input type='text' ref='number' defaultValue={claim.number} placeholder='Number' autoFocus/>
-                  <input type='text' ref='description' defaultValue={claim.description} placeholder='Description' />
-                  <input type='text' ref='claimDate' defaultValue={claim.claimDate} placeholder='Invoice date' />
-                  <input type='text' ref='amount' defaultValue={claim.amount} placeholder='Amount' />
-                  <input type='text' ref='invoiceDate' defaultValue={claim.invoiceDate} placeholder='Claim date' />
+                  <label>
+                    <span>Claim number</span>
+                    <input type='text' ref='number' defaultValue={claim.number} placeholder='enter claim number...' autoFocus/>
+                  </label>
+                  <label>
+                    <span>Description</span>
+                    <input type='text' ref='description' defaultValue={claim.description} placeholder='enter description...' />
+                  </label>
+                  <label>
+                    <span>Amount</span>
+                    <input type='number' min="0.01" step="0.01" ref='amount' defaultValue={claim.amount} placeholder='Amount' />
+                  </label>
+                  <label>
+                    <span>Invoice date (MM/DD/YYYY)</span>
+                    <input type='date' ref='claimDate' defaultValue={claim.claimDate} placeholder='Invoice date' />
+                  </label>
+                  <label>
+                    <span>Claim date (MM/DD/YYYY)</span>
+                    <input type='date' ref='invoiceDate' defaultValue={claim.invoiceDate} placeholder='Claim date' />
+                  </label>
                   {renderStatus()}
-                  <button className='button expanded'>Save</button>
+                  <div className='controls'>
+                    <button className='button hollow primary expanded'>Save</button>
+                    <button className='button hollow alert expanded' onClick={handleCancel}>Cancel</button>
+                  </div>
                 </form>
               </div>
             </div>

@@ -4,6 +4,10 @@
   border-radius: 10px;
   padding: 0;
   margin-bottom: 2rem;
+
+  .button {
+    border-radius: $default-radius;
+  }
 }
 
 .container__header {

@@ -1,0 +1,16 @@
+.controls {
+  display: flex;
+  justify-content: center;
+
+  .button {
+    padding: 0.75rem 5.6rem;
+  }
+
+  .button:first-child {
+    margin-right: 1.5rem;
+  }
+
+  .button {
+    border-radius: $default-radius;
+  }
+}
