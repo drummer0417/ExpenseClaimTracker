@@ -1,4 +1,4 @@
-import firebase, {firebaseRef, githubProvider} from 'initFirebase';
+import firebase, {firebaseRef, githubProvider, facebookProvider} from 'initFirebase';
 import moment from 'moment';
 
 import actions from 'actions';
@@ -84,9 +84,20 @@ export var updateClaim = (id, updates)  => {
   };
 };
 
-export var startLogin = () => {
+export var starGitLogin = () => {
   return (dispatch, getState) => {
     return firebase.auth().signInWithPopup(githubProvider).then((result) => {
+      // dispatch(login(result.user.uid));
+    }, (error) => {
+      console.log('Unable to authenticate: ', error);
+    });
+  };
+}
+
+export var startFBLogin = () => {
+  return (dispatch, getState) => {
+    return firebase.auth().signInWithPopup(facebookProvider).then((result) => {
+      console.log('logged in with facebookProvider: ', result);
       // dispatch(login(result.user.uid));
     }, (error) => {
       console.log('Unable to authenticate: ', error);
