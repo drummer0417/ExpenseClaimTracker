@@ -50,7 +50,7 @@ export var ClaimDetails = React.createClass({
       console.log('newStatus before update:', newStatus);
 
       if (number.value.length < 1 || description.value.length < 1) {
-        alert('Enter a claim number...')
+        alert('At least enter a claim number and a description...')
       } else {
         var newClaim = {
           number: number.value,
