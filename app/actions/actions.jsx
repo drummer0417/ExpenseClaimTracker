@@ -89,6 +89,7 @@ export var starGitLogin = () => {
     return firebase.auth().signInWithPopup(githubProvider).then((result) => {
       // dispatch(login(result.user.uid));
     }, (error) => {
+      alert('Unable to authenticate:\n\n' + error);
       console.log('Unable to authenticate: ', error);
     });
   };
@@ -101,6 +102,7 @@ export var startFBLogin = () => {
       // dispatch(login(result.user.uid));
     }, (error) => {
       console.log('Unable to authenticate: ', error);
+      alert(error);
     });
   };
 }

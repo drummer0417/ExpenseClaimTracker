@@ -18,7 +18,8 @@ export var ClaimDetails = React.createClass({
       var currentDate = moment.unix(timestamp).format('YYYY-MM-DD');
       console.log('currentDate: ', currentDate);
       return {
-        status: 'New'
+        status: 'New',
+        claimDate: currentDate
       };
     }
   },
@@ -76,6 +77,13 @@ export var ClaimDetails = React.createClass({
       var isApproved = claim.status === 'Approved';
       var isWividusInProgress = claim.status === 'Wividus - in progress';
       var isCompleted= claim.status === 'Completed';
+
+      var statusses = ['New', 'Pending Approval', 'Approved','Wividus - in progress'];
+      // var inputStatus = [];
+      // statusses.forEach((status) => {
+      //   inputStatus.push('<label><input className="radio" type="radio" name="status" ref="status" onClick={setStatus} defaultChecked={isNew} value="' + status + '"/><span className="radio-label">' + status + '</span></label>)');
+      // });
+      // console.log('inputStatus: ', inputStatus);
       return(
         <div className="status">
           <p>Status</p>
