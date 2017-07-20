@@ -84,6 +84,22 @@ export var updateClaim = (id, updates)  => {
   };
 };
 
+export var ectLogin = (email, password) => {
+  return (dispatch, getState) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      throw error;
+    });
+  }
+};
+
+export var signUp = (email, password) => {
+  return (dispatch, getState) => {
+    return firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+      throw error;
+    })
+  }
+};
+
 export var starGitLogin = () => {
   return (dispatch, getState) => {
     return firebase.auth().signInWithPopup(githubProvider).then((result) => {
