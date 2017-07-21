@@ -20,4 +20,12 @@
   .button {
     border-radius: $default-radius;
   }
+
+}
+
+.login-border {
+  border: 2px solid $light-blue-border;
+  border-radius: $default-radius;
+  padding: 2rem 2rem 0rem 2rem;
+  margin-bottom: 2rem;
 }

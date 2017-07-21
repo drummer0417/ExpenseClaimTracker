@@ -96,6 +96,16 @@ export var ectLogin = (email, password) => {
   }
 };
 
+export var passwordReset = (email, password) => {
+  return (dispatch, getState) => {
+    return firebase.auth().sendPasswordResetEmail(email)
+      .catch((error) => {
+      throw error;
+    });
+  }
+};
+
+
 export var signUp = (email, password) => {
   return (dispatch, getState) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
@@ -107,12 +117,6 @@ export var signUp = (email, password) => {
 export var starGitLogin = () => {
   return (dispatch, getState) => {
     return firebase.auth().signInWithPopup(githubProvider)
-    // .then((result) => {
-    //   // dispatch(login(result.user.uid));
-    // }, (error) => {
-    //   alert('Unable to authenticate:\n\n' + error);
-    //   console.log('Unable to authenticate: ', error);
-    // })
     .catch((error) =>{
       throw error;
     });
@@ -122,13 +126,6 @@ export var starGitLogin = () => {
 export var startFBLogin = () => {
   return (dispatch, getState) => {
     return firebase.auth().signInWithPopup(facebookProvider)
-    // .then((result) => {
-    //   console.log('logged in with facebookProvider: ', result);
-    //   // dispatch(login(result.user.uid));
-    // }, (error) => {
-    //   console.log('Unable to authenticate: ', error);
-    //   alert(error);
-    // })
     .catch((error) =>{
       throw error;
     });

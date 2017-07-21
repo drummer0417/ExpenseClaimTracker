@@ -5,12 +5,6 @@ var actions = require('actions');
 
 export var Claim = React.createClass({
 
-  // onToggleCompleted: function(id) {
-  //     return (() => {
-  //       this.props.onToggleCompleted(id)
-  //     }
-  //   )
-  // },
   render: function () {
     var {description, id, number, claimDate, invoiceDate, status, dispatch} = this.props;
     var completed = status === 'Completed';
@@ -18,12 +12,6 @@ export var Claim = React.createClass({
 
     var renderDate = () => {
       var message = 'Claim- / Invoiece date: ';
-      // var timestamp = claimDate;
-      // if (completed) {
-      //   message = 'Completed: '
-      //   timestamp = completedAt;
-      // }
-      // return message + moment.unix(timestamp).format('dd D-MM-YYYY - H:mm:ss');
       return message + claimDate + " / " + invoiceDate;
     };
 
