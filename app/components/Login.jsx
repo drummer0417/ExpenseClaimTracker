@@ -10,18 +10,30 @@ export var Login = React.createClass({
     if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
       alert('Error! \n\nemail address unknow or password invalid');
     } else {
-      alert(error.message);
+      alert('Error! \n\n' + error.message);
     }
   },
   onGitLogin(e) {
     e.preventDefault();
     var {dispatch} = this.props;
-    dispatch(actions.starGitLogin());
+    dispatch(actions.starGitLogin()).then((result) =>{
+    }, (error) => {
+      this.handleLoginError(error);
+    }).catch((error) => {
+      // Handle Errors here.
+      this.handleLoginError(error);
+    });
   },
   onFBLogin(e) {
     e.preventDefault();
     var {dispatch} = this.props;
-    dispatch(actions.startFBLogin());
+    dispatch(actions.startFBLogin()).then((result) =>{
+    }, (error) => {
+      this.handleLoginError(error);
+    }).catch((error) => {
+      // Handle Errors here.
+      this.handleLoginError(error);
+    });
   },
   onSignUp(e) {
     e.preventDefault();
@@ -33,7 +45,6 @@ export var Login = React.createClass({
       alert('Passwords do not match');
     } else {
       dispatch(actions.signUp(email, password)).then((result) =>{
-
       }, (error) => {
         this.handleLoginError(error);
       }).catch((error) => {
@@ -52,7 +63,7 @@ export var Login = React.createClass({
         alert('Enter a value for email address and password');
     } else {
       dispatch(actions.ectLogin(email, password)).then((result) =>{
-
+        // login ok
       }, (error) => {
         this.handleLoginError(error);
       }).catch((error) => {
