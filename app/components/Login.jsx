@@ -24,6 +24,18 @@ export var Login = React.createClass({
       this.handleLoginError(error);
     });
   },
+  onPressEnterLogin(e) {
+    console.log('onPressEnterLogin');
+    if(e.key === 'Enter') {
+      this.onEctLogin(e)
+    }
+  },
+  onPressEnterSignUp(e) {
+    console.log('onPressEnterSignUp');
+    if(e.key === 'Enter') {
+      this.onSignUp(e)
+    }
+  },
   onFBLogin(e) {
     e.preventDefault();
     var {dispatch} = this.props;
@@ -83,16 +95,16 @@ export var Login = React.createClass({
               <h1>Login</h1>
               <div>
                 <h5>Login with your Expense Claim Tracker credentials</h5>
-                <input type='text' ref='email' placeholder='enter email address' />
-                <input type='password' ref='password' placeholder='enter password' />
+                <input type='text' ref='email' placeholder='enter email address' onKeyPress={this.onPressEnterLogin} autoFocus />
+                <input type='password' ref='password' placeholder='enter password' onKeyPress={this.onPressEnterLogin} />
                 <button className="button" onClick={this.onEctLogin}>Login</button>
               </div>
               <hr/>
               <div>
                 <h5>Or Sign up</h5>
-                <input type='text' ref='newEmail' placeholder='enter email address' />
-                <input type='password' ref='newPassword' placeholder='enter password' />
-                <input type='password' ref='verifyNewPassword' placeholder='verify password' />
+                <input type='text' ref='newEmail' placeholder='enter email address' onKeyPress={this.onPressEnterSignUp} />
+                <input type='password' ref='newPassword' placeholder='enter password' onKeyPress={this.onPressEnterSignUp} />
+                <input type='password' ref='verifyNewPassword' placeholder='verify password' onKeyPress={this.onPressEnterSignUp}/>
                 <button className="button" onClick={this.onSignUp}>Sign up</button>
               </div>
               <hr/>
