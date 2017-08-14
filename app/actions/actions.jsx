@@ -87,9 +87,9 @@ export var updateClaim = (id, updates)  => {
 export var ectLogin = (email, password) => {
   return (dispatch, getState) => {
     return firebase.auth().signInWithEmailAndPassword(email, password)
-    // .then((result) => {
-    //   // dispatch(login(result.user.uid));
-    // })
+    .then((result) => {
+      // dispatch(login(result.user.uid));
+    })
     .catch((error) => {
       throw error;
     });
@@ -108,7 +108,10 @@ export var passwordReset = (email, password) => {
 
 export var signUp = (email, password) => {
   return (dispatch, getState) => {
-    return firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((result) => {
+      console.log('result: ', result);
+    }, () => {}).catch((error) => {
       throw error;
     })
   }

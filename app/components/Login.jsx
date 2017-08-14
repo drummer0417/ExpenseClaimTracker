@@ -25,13 +25,11 @@ export var Login = React.createClass({
     });
   },
   onPressEnterLogin(e) {
-    console.log('onPressEnterLogin');
     if(e.key === 'Enter') {
       this.onEctLogin(e)
     }
   },
   onPressEnterSignUp(e) {
-    console.log('onPressEnterSignUp');
     if(e.key === 'Enter') {
       this.onSignUp(e)
     }
@@ -57,9 +55,12 @@ export var Login = React.createClass({
     this.handleLoginError({message: 'Passwords do not match'});
     } else {
       dispatch(actions.signUp(email, password)).then((result) =>{
+        // console.log('in Login.signUp then');
       }, (error) => {
+        // console.log('in Login.signUp error');
         throw error;
       }).catch((error) => {
+        // console.log('in Login.signUp catch');
         // Handle Errors here.
         this.handleLoginError(error);
       });
@@ -75,7 +76,7 @@ export var Login = React.createClass({
         this.handleLoginError({message: 'Enter an email address and a password'});
     } else {
       dispatch(actions.ectLogin(email, password)).then((result) =>{
-        // login ok
+        console.log('Login OK:\n', result);
       }, (error) => {
         throw error;
       }).catch((error) => {

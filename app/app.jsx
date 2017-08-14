@@ -12,6 +12,14 @@ import router from 'router';
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
+    // console.log('user: ', user);
+    // console.log('providerId: ', user.providerData[0].providerId);
+    // if (user.providerData[0] && user.providerData[0].providerId === "password") {
+    //   if (!user.emailVerified) {
+    //     store.dispatch(actions.startLogout());
+    //     alert('Email address is not verified yet, check you mailbox and verrify your new account by clicking the link')
+    //   }
+    // }
     store.dispatch(actions.login(user.uid));
     store.dispatch(actions.startInitializeClaims());
     hashHistory.push('/claims');
